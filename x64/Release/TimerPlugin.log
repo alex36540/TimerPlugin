@@ -1,0 +1,7 @@
+﻿  TimerPlugin.cpp
+  Generating code
+  Incremental LTCG not supported for -Od component, build without incremental LTCG.
+  Finished generating code
+  TimerPlugin.vcxproj -> C:\Users\AlexStoer\Desktop\Coding\Bakkes\TimerPlugin\x64\Release\TimerPlugin.dll
+  20:57:21 [INFO] Copying plugin to C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\plugins\TimerPlugin.dll
+  20:57:21 [INFO] Done
