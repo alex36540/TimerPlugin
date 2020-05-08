@@ -1,1 +1,2 @@
 C:\Users\AlexStoer\Desktop\Coding\Bakkes\TimerPlugin\x64\Release\TimerPlugin.dll
+E:\Bakkes\TimerPlugin\x64\Release\TimerPlugin.dll

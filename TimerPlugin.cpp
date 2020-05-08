@@ -1,5 +1,9 @@
 #include "TimerPlugin.h"
+#include <string.h>
 #include <ctime>
+#include <Windows.h> // Don't have to check for linux bc no more linux support :(
+
+using namespace std::chrono;
 
 BAKKESMOD_PLUGIN(TimerPlugin, "Timer Plugin", "1.0", PLUGINTYPE_FREEPLAY)
 
@@ -30,15 +34,23 @@ void TimerPlugin::countDownTimer(std::string oldValue, CVarWrapper cvar)
 {
 	if (oldValue.compare("0") == 0 && cvar.getBoolValue())
 	{
-		timeLeft = cvarManager->getCvar("timer_set_hours").getIntValue() * 3600 + cvarManager->getCvar("timer_set_minutes").getIntValue() * 60 + cvarManager->getCvar("timer_set_seconds").getIntValue(); // convert cvars into seconds
-		double initialTime = timeLeft;
-		auto currentTime = 0;
+		double totalTime = cvarManager->getCvar("timer_set_hours").getIntValue() * 3600 + cvarManager->getCvar("timer_set_minutes").getIntValue() * 60 + cvarManager->getCvar("timer_set_seconds").getIntValue(); // convert cvars into seconds
 
-		while (timeLeft > 0)
+		double initialTime = clock() / (double)CLOCKS_PER_SEC;
+		double timeElapsed = 0;
+
+
+
+		while (timeElapsed < totalTime)
 		{
-			currentTime = clock() / (double) CLOCKS_PER_SEC; 
-			timeLeft = initialTime - currentTime;
+			double currentTime = clock() / (double)CLOCKS_PER_SEC;
+			timeElapsed = currentTime - initialTime;
+			timeLeft = totalTime - timeElapsed;
+			Sleep(100);
 		}
+
+
+		cvarManager->log("timer is finished");
 		// add if user is not in game
 	}
 }
