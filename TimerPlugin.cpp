@@ -38,14 +38,16 @@ void TimerPlugin::countDownTimer(std::string oldValue, CVarWrapper cvar)
 
 		double initialTime = clock() / (double)CLOCKS_PER_SEC;
 		double timeElapsed = 0;
+		double currentTime;
 
-
+		cvarManager->log("Timer started with " + to_string(totalTime) + " seconds");
 
 		while (timeElapsed < totalTime)
 		{
-			double currentTime = clock() / (double)CLOCKS_PER_SEC;
+			currentTime = clock() / (double)CLOCKS_PER_SEC;
 			timeElapsed = currentTime - initialTime;
 			timeLeft = totalTime - timeElapsed;
+
 			Sleep(100);
 		}
 
