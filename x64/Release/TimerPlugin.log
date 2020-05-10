@@ -23,12 +23,10 @@ C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkes
 C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\bakkesmodsdk\include\bakkesmod\plugin\bakkesmodplugin.h(61): message : see declaration of 'std::shared_ptr<CVarManagerWrapper>'
 C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\bakkesmodsdk\include\bakkesmod\plugin\bakkesmodplugin.h(62,44): warning C4251: 'BakkesMod::Plugin::BakkesModPlugin::gameWrapper': class 'std::shared_ptr<GameWrapper>' needs to have dll-interface to be used by clients of class 'BakkesMod::Plugin::BakkesModPlugin'
 C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\bakkesmodsdk\include\bakkesmod\plugin\bakkesmodplugin.h(62): message : see declaration of 'std::shared_ptr<GameWrapper>'
-E:\Bakkes\TimerPlugin\TimerPlugin.cpp(92,9): warning C4101: 'currentTime': unreferenced local variable
-E:\Bakkes\TimerPlugin\TimerPlugin.cpp(101,9): warning C4101: 'currentTime': unreferenced local variable
      Creating library E:\Bakkes\TimerPlugin\x64\Release\TimerPlugin.lib and object E:\Bakkes\TimerPlugin\x64\Release\TimerPlugin.exp
   Generating code
-  0 of 372 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  170 of 399 functions (42.6%) were compiled, the rest were copied from previous compilation.
+    154 functions were new in current compilation
+    23 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TimerPlugin.vcxproj -> E:\Bakkes\TimerPlugin\x64\Release\TimerPlugin.dll
