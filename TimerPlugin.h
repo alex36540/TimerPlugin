@@ -7,27 +7,38 @@
 class TimerPlugin : public BakkesMod::Plugin::BakkesModPlugin
 {
 private:
-	double timeLeft;
-	double initialTime;
-	double startTime;
 	double currentTime;
-
-	double timerTotal;
-	double lookTotal;
-	double standTotal;
+	double initialTime;
+	
+	double timerTimeLeft;
 	
 	bool timerEnabled = false;
 	bool lookBreakEnabled = false;
 	bool standBreakEnabled = false;
 
+	double timerTimeElapsed;
+	double lookBreakTimeElapsed;
+	double standBreakTimeElapsed;
+
+	double timerStartTime;
+	double lookBreakStartTime;
+	double standBreakStartTime;
+
+	double timerTotal;
+	double lookBreakTotal;
+	double standBreakTotal;
+
 public:
 	virtual void onLoad();
 	virtual void onUnload();
-	void timerOnChangeValue();
-	void lookOnChangeValue(std::string oldValue, CVarWrapper cvar);
-	void standOnChangeValue(std::string oldValue, CVarWrapper cvar);
-
 	double timeNow();
-	void checkTime();
-	void runTimer();
+	
+	void timerOnChangeValue(std::string oldValue, CVarWrapper cvar);
+	void lookBreakOnChangeValue(std::string oldValue, CVarWrapper cvar);
+	void standBreakOnChangeValue(std::string oldValue, CVarWrapper cvar);
+
+	void runTimers();
+	void checkTimer();
+	void checkLookBreak();
+	void checkStandBreak();
 };
