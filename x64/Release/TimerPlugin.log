@@ -25,8 +25,8 @@ C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkes
 C:\Program Files (x86)\Steam\steamapps\common\rocketleague\Binaries\Win64\bakkesmod\bakkesmodsdk\include\bakkesmod\plugin\bakkesmodplugin.h(62): message : see declaration of 'std::shared_ptr<GameWrapper>'
      Creating library C:\Users\AlexStoer\Desktop\Coding\Bakkes\TimerPlugin\x64\Release\TimerPlugin.lib and object C:\Users\AlexStoer\Desktop\Coding\Bakkes\TimerPlugin\x64\Release\TimerPlugin.exp
   Generating code
-  3 of 436 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+  41 of 436 functions ( 9.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   TimerPlugin.vcxproj -> C:\Users\AlexStoer\Desktop\Coding\Bakkes\TimerPlugin\x64\Release\TimerPlugin.dll

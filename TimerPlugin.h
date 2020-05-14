@@ -12,9 +12,9 @@ private:
 	
 	double timerTimeLeft;
 	
-	bool timerEnabled = false;
-	bool lookBreakEnabled = false;
-	bool standBreakEnabled = false;
+	bool timerEnabled;
+	bool lookBreakEnabled;
+	bool standBreakEnabled;
 
 	double timerTimeElapsed;
 	double lookBreakTimeElapsed;
@@ -27,6 +27,8 @@ private:
 	double timerTotal;
 	double lookBreakTotal;
 	double standBreakTotal;
+
+	bool displayOn = false;
 
 public:
 	virtual void onLoad();
@@ -41,4 +43,5 @@ public:
 	void checkTimer();
 	void checkLookBreak();
 	void checkStandBreak();
+	void OnDraw(CanvasWrapper cw);
 };

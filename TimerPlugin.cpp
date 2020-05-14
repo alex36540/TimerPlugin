@@ -47,10 +47,9 @@ double TimerPlugin::timeNow()
 void TimerPlugin::timerOnChangeValue(std::string oldValue, CVarWrapper cvar)
 {
 	if (oldValue.compare("0") == 0 && cvar.getBoolValue())
-	{
-		cvarManager->log("Timer started with " + to_string(timerTotal) + " seconds");
-		
+	{	
 		timerTotal = cvarManager->getCvar("timer_set_hours").getIntValue() * 3600 + cvarManager->getCvar("timer_set_minutes").getIntValue() * 60 + cvarManager->getCvar("timer_set_seconds").getIntValue(); 
+		cvarManager->log("Timer started with " + to_string(timerTotal) + " seconds");
 		timerEnabled = true;
 		timerStartTime = timeNow();
 		runTimers();
@@ -68,6 +67,7 @@ void TimerPlugin::lookBreakOnChangeValue(std::string oldValue, CVarWrapper cvar)
 	if (oldValue.compare("0") == 0 && cvar.getBoolValue())
 	{
 		lookBreakTotal = cvarManager->getCvar("lookBreak_set_hours").getIntValue() * 3600 + cvarManager->getCvar("lookBreak_set_minutes").getIntValue() * 60 + cvarManager->getCvar("lookBreak_set_seconds").getIntValue(); 
+		cvarManager->log("Look break timer started with " + to_string(lookBreakTotal) + " seconds");
 		lookBreakEnabled = true;
 		lookBreakStartTime = timeNow();
 		runTimers();
@@ -83,6 +83,7 @@ void TimerPlugin::standBreakOnChangeValue(std::string oldValue, CVarWrapper cvar
 	if (oldValue.compare("0") == 0 && cvar.getBoolValue()) 
 	{
 		standBreakTotal = cvarManager->getCvar("standBreak_set_hours").getIntValue() * 3600 + cvarManager->getCvar("standBreak_set_minutes").getIntValue() * 60 + cvarManager->getCvar("standBreak_set_seconds").getIntValue(); 
+		cvarManager->log("Stand break timer started with " + to_string(standBreakTotal) + " seconds");
 		standBreakEnabled = true;
 		standBreakStartTime = timeNow();
 		runTimers();
@@ -97,6 +98,7 @@ void TimerPlugin::runTimers()
 {
 	currentTime = timeNow();
 
+	// tests every case
 	if (!timerEnabled && !lookBreakEnabled && !standBreakEnabled) 
 	{
 		return;
@@ -174,7 +176,7 @@ void TimerPlugin::checkTimer()
 	else if (!gameWrapper->IsInOnlineGame())
 	{
 		timerEnabled = false;
-		cvarManager->log("Timer finsihed");
+		cvarManager->log("Timer finished");
 		return;
 	}
 	else
@@ -199,6 +201,7 @@ void TimerPlugin::checkLookBreak()
 	}
 	else
 	{
+		lookBreakTimeElapsed = 0;
 		return;
 	}
 }
@@ -219,8 +222,13 @@ void TimerPlugin::checkStandBreak()
 	}
 	else
 	{
+		standBreakTimeElapsed = 0;
 		return;
 	}
+}
+
+void TimerPlugin::OnDraw(CanvasWrapper cw)
+{
 }
 
 
