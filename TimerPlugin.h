@@ -7,33 +7,36 @@
 class TimerPlugin : public BakkesMod::Plugin::BakkesModPlugin
 {
 private:
-	double currentTime;
-	double initialTime;
+	float currentTime;
+	float initialTime;
 	
-	double timerTimeLeft;
+	float timerTimeLeft;
 	
 	bool timerEnabled;
 	bool lookBreakEnabled;
 	bool standBreakEnabled;
 
-	double timerTimeElapsed;
-	double lookBreakTimeElapsed;
-	double standBreakTimeElapsed;
+	float timerTimeElapsed;
+	float lookBreakTimeElapsed;
+	float standBreakTimeElapsed;
 
-	double timerStartTime;
-	double lookBreakStartTime;
-	double standBreakStartTime;
+	float timerStartTime;
+	float lookBreakStartTime;
+	float standBreakStartTime;
 
-	double timerTotal;
-	double lookBreakTotal;
-	double standBreakTotal;
+	float timerTotal;
+	float lookBreakTotal;
+	float standBreakTotal;
 
-	bool displayOn = false;
+	std::shared_ptr<int> displayX;
+	std::shared_ptr<int> displayY;
+	bool timerDisplayOn;
+	bool lookBreakDisplayOn;
 
 public:
 	virtual void onLoad();
 	virtual void onUnload();
-	double timeNow();
+	float timeNow();
 	
 	void timerOnChangeValue(std::string oldValue, CVarWrapper cvar);
 	void lookBreakOnChangeValue(std::string oldValue, CVarWrapper cvar);
@@ -43,5 +46,13 @@ public:
 	void checkTimer();
 	void checkLookBreak();
 	void checkStandBreak();
-	void OnDraw(CanvasWrapper cw);
+
+	void onDraw(CanvasWrapper cw);
+};
+
+struct RenderOptions
+{
+	Vector2 currentPosition = { 0,0 };
+	Vector2 boxSize = { 0, 0 };
+	float textSize = 14;
 };

@@ -1,7 +1,7 @@
 #include "TimerPlugin.h"
 #include <string.h>
 
-BAKKESMOD_PLUGIN(TimerPlugin, "Timer Plugin", "1.0", PLUGINTYPE_FREEPLAY)
+BAKKESMOD_PLUGIN(TimerPlugin, "Timer Plugin", "0.5", PLUGINTYPE_FREEPLAY)
 
 
 void TimerPlugin::onLoad()
@@ -29,7 +29,13 @@ void TimerPlugin::onLoad()
 	cvarManager->registerCvar("standBreak_set_minutes", "30", "How many minutes until alert for standing is called", true, true, 0, true, 60, true);
 	cvarManager->registerCvar("standBreak_set_seconds", "0", "How many seconds until alert for standing is called", true, true, 0, true, 60, true);
 
+	// Display
+	
+	timerDisplayOn = true;
+	displayX = std::make_shared<int>(500);
+	displayY = std::make_shared<int>(200);
 
+	// Other
 
 	initialTime = timeNow();
 }
@@ -38,9 +44,9 @@ void TimerPlugin::onUnload()
 {
 }
 
-double TimerPlugin::timeNow()
+float TimerPlugin::timeNow()
 {
-	return clock() / (double)CLOCKS_PER_SEC;
+	return clock() / (float)CLOCKS_PER_SEC;
 }
 
 
@@ -50,8 +56,10 @@ void TimerPlugin::timerOnChangeValue(std::string oldValue, CVarWrapper cvar)
 	{	
 		timerTotal = cvarManager->getCvar("timer_set_hours").getIntValue() * 3600 + cvarManager->getCvar("timer_set_minutes").getIntValue() * 60 + cvarManager->getCvar("timer_set_seconds").getIntValue(); 
 		cvarManager->log("Timer started with " + to_string(timerTotal) + " seconds");
+		timerTimeLeft = timerTotal;
 		timerEnabled = true;
 		timerStartTime = timeNow();
+		gameWrapper->RegisterDrawable(std::bind(&TimerPlugin::onDraw, this, std::placeholders::_1));
 		runTimers();
 	}
 	
@@ -163,11 +171,10 @@ void TimerPlugin::checkTimer()
 {
 	timerTimeElapsed = currentTime - timerStartTime;
 
-	if (timerTimeLeft > 0)
+	if (timerTimeElapsed < timerTotal) 
 	{
 		timerTimeLeft = timerTotal - timerTimeElapsed;
 	}
-
 
 	if (timerTimeElapsed < timerTotal)
 	{
@@ -227,8 +234,24 @@ void TimerPlugin::checkStandBreak()
 	}
 }
 
-void TimerPlugin::OnDraw(CanvasWrapper cw)
+void TimerPlugin::onDraw(CanvasWrapper cw)
 {
+	Vector2 canvasSize = cw.GetSize();
+	RenderOptions ro;
+	ro.currentPosition = {canvasSize.X - *displayX, *displayY};
+	ro.boxSize = {250, 60};
+
+	cw.SetPosition(ro.currentPosition);
+	cw.SetColor(0, 0, 0, 150);
+	cw.FillBox(ro.boxSize);
+	ro.currentPosition = { ro.currentPosition.X + 8, ro.currentPosition.Y + 5 };
+	cw.SetPosition(ro.currentPosition);
+	cw.SetColor(255, 255, 255, 255);
+	string time_left = "Time left: " + to_string((int) timerTimeLeft) + " s";
+	
+	cw.DrawString(time_left);
+	ro.currentPosition.Y += ro.textSize;
+	cw.SetPosition(ro.currentPosition);
 }
 
 
