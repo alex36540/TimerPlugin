@@ -28,10 +28,21 @@ private:
 	float lookBreakTotal;
 	float standBreakTotal;
 
+	float lookBreakDoneTime;
+	float standBreakDoneTime;
+
 	std::shared_ptr<int> displayX;
 	std::shared_ptr<int> displayY;
 	bool timerDisplayOn;
 	bool lookBreakDisplayOn;
+	
+	bool timerDone = false;
+	bool lookBreakDone = false;
+	bool standBreakDone = false;
+
+	bool testVar = true;
+
+	float timeOutOfGame; 
 
 public:
 	virtual void onLoad();
@@ -47,7 +58,10 @@ public:
 	void checkLookBreak();
 	void checkStandBreak();
 
-	void onDraw(CanvasWrapper cw);
+	void onDrawTimer(CanvasWrapper cw);
+	void onDrawLookBreak(CanvasWrapper cw);
+	void onDrawStandBreak(CanvasWrapper cw);
+	void flashDisplay(CanvasWrapper cw, bool cond1, bool cond2);
 };
 
 struct RenderOptions
