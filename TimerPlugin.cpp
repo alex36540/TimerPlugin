@@ -112,63 +112,27 @@ void TimerPlugin::runTimers()
 	currentTime = timeNow();
 
 	// tests every case
-	if (!timerEnabled && !lookBreakEnabled && !standBreakEnabled) 
+	if (timerEnabled || lookBreakEnabled || standBreakEnabled)
+	{
+		if (timerEnabled)
+		{
+			checkTimer();
+		}
+		if (lookBreakEnabled)
+		{ 
+			checkLookBreak();
+		}
+		if (standBreakEnabled)
+		{ 
+			checkStandBreak();
+		}
+		gameWrapper->SetTimeout([this](GameWrapper* gw) {
+			this->runTimers();
+			}, 1.0f);
+	}
+	else
 	{
 		return;
-	}
-	else if (timerEnabled && !lookBreakEnabled && !standBreakEnabled)
-	{
-		checkTimer();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
-	}
-	else if (timerEnabled && lookBreakEnabled && !standBreakEnabled)
-	{
-		checkTimer();
-		checkLookBreak();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
-	}
-	else if (timerEnabled && lookBreakEnabled && standBreakEnabled)
-	{
-		checkTimer();
-		checkLookBreak();
-		checkStandBreak();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
-	}
-	else if (!timerEnabled && lookBreakEnabled && !standBreakEnabled)
-	{
-		checkLookBreak();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
-	}
-	else if (!timerEnabled && lookBreakEnabled && standBreakEnabled)
-	{
-		checkLookBreak();
-		checkStandBreak();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
-	}
-	else if (!timerEnabled && !lookBreakEnabled && standBreakEnabled)
-	{
-		checkStandBreak();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
-	}
-	else if (timerEnabled && !lookBreakEnabled && standBreakEnabled)
-	{
-		checkTimer();
-		checkStandBreak();
-		gameWrapper->SetTimeout([this](GameWrapper* gw) {
-			this->runTimers();
-			}, 0.1f);
 	}
 }
 
@@ -207,15 +171,14 @@ void TimerPlugin::checkLookBreak()
 		lookBreakStartTime = timeNow();
 		lookBreakTimeElapsed = 0;
 		lookBreakDone = true;
-		lookBreakDoneTime = timeNow();
 	}
 	if (lookBreakDone)
 	{
 		if (!gameWrapper->IsInOnlineGame())
 		{
-			float timeElapsed = timeNow() - lookBreakDoneTime;
+			float timeElapsed = timeNow() - lookBreakStartTime;
 			
-			if (timeElapsed > 10)
+			if (timeElapsed > 60)
 			{
 				
 				lookBreakDone = false;
@@ -236,15 +199,14 @@ void TimerPlugin::checkStandBreak()
 		standBreakStartTime = timeNow();
 		standBreakTimeElapsed = 0;
 		standBreakDone = true;
-		standBreakDoneTime = timeNow();
 	}
 	if (standBreakDone)
 	{
 		if (!gameWrapper->IsInOnlineGame())
 		{
-			float timeElapsed = timeNow() - standBreakDoneTime;
+			float timeElapsed = timeNow() - standBreakStartTime;
 
-			if (timeElapsed > 10)
+			if (timeElapsed > 60)
 			{
 
 				standBreakDone = false;
