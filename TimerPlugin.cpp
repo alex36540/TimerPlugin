@@ -18,7 +18,7 @@ void TimerPlugin::onLoad()
 
 	cvarManager->registerCvar("lookBreak_enabled", "0", "Whether looking break timer is enabled", true, true, 0, true, 1, true).addOnValueChanged(std::bind(&TimerPlugin::lookBreakOnChangeValue, this, std::placeholders::_1, std::placeholders::_2));
 	cvarManager->registerCvar("lookBreak_set_hours", "0", "How many hours until alert for looking around is called", true, true, 0, true, 1000, true);
-	cvarManager->registerCvar("lookBreak_set_minutes", "0", "How many minutes until alert for looking around is called", true, true, 0, true, 60, true); // default 20
+	cvarManager->registerCvar("lookBreak_set_minutes", "20", "How many minutes until alert for looking around is called", true, true, 0, true, 60, true); // default 20
 	cvarManager->registerCvar("lookBreak_set_seconds", "0", "How many hours until alert for looking around is called", true, true, 0, true, 60, true);
 
 
@@ -26,13 +26,15 @@ void TimerPlugin::onLoad()
 
 	cvarManager->registerCvar("standBreak_enabled", "0", "Whether standing break timer is enabled", true, true, 0, true, 1, true).addOnValueChanged(std::bind(&TimerPlugin::standBreakOnChangeValue, this, std::placeholders::_1, std::placeholders::_2));
 	cvarManager->registerCvar("standBreak_set_hours", "0", "How many hours until alert for standing is called", true, true, 0, true, 1000, true);
-	cvarManager->registerCvar("standBreak_set_minutes", "0", "How many minutes until alert for standing is called", true, true, 0, true, 60, true); // default 30
+	cvarManager->registerCvar("standBreak_set_minutes", "30", "How many minutes until alert for standing is called", true, true, 0, true, 60, true); // default 30
 	cvarManager->registerCvar("standBreak_set_seconds", "0", "How many seconds until alert for standing is called", true, true, 0, true, 60, true);
 
 	// Display
 	
 	displayX = std::make_shared<int>(500);
 	displayY = std::make_shared<int>(200);
+	cvarManager->registerCvar("timer_display_x", "500", "The x distance from the right border of the screen", true, true, 0.0f, true, 1920.0f, true).bindTo(displayX);
+	cvarManager->registerCvar("timer_display_y", "200", "The y distance from the top of the screen", true, true, 0.0f, true, 1080.0f, true).bindTo(displayY);
 
 	// Other
 
@@ -48,6 +50,10 @@ float TimerPlugin::timeNow()
 	return clock() / (float)CLOCKS_PER_SEC;
 }
 
+bool TimerPlugin::gameEnded()
+{
+	return gameWrapper->GetOnlineGame().GetbMatchEnded();
+}
 
 void TimerPlugin::timerOnChangeValue(std::string oldValue, CVarWrapper cvar)
 {
@@ -68,7 +74,6 @@ void TimerPlugin::timerOnChangeValue(std::string oldValue, CVarWrapper cvar)
 	{
 		timerEnabled = false;
 		timerDone = false;
-		testVar = false;
 	}
 
 }
@@ -220,7 +225,7 @@ void TimerPlugin::onDrawTimer(CanvasWrapper cw)
 {
 	if (timerDisplayOn || lookBreakDone || standBreakDone)
 	{
-		if (!gameWrapper->IsInOnlineGame())
+		if (!gameWrapper->IsInOnlineGame() || gameEnded())
 		{
 			Vector2 canvasSize = cw.GetSize();
 			RenderOptions ro;
@@ -279,3 +284,4 @@ void TimerPlugin::flashDisplay(CanvasWrapper cw, bool cond1, bool cond2)
 		}
 	}
 }
+

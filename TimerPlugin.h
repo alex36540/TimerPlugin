@@ -29,9 +29,6 @@ private:
 	float lookBreakTotal;
 	float standBreakTotal;
 
-	float lookBreakDoneTime;
-	float standBreakDoneTime;
-
 	std::shared_ptr<int> displayX;
 	std::shared_ptr<int> displayY;
 	bool timerDisplayOn;
@@ -41,15 +38,13 @@ private:
 	bool lookBreakDone = false;
 	bool standBreakDone = false;
 
-	bool testVar = true;
-
-	float timeOutOfGame; 
-
 public:
 	virtual void onLoad();
 	virtual void onUnload();
-	float timeNow();
 	
+	float timeNow();
+	bool gameEnded();
+
 	void timerOnChangeValue(std::string oldValue, CVarWrapper cvar);
 	void lookBreakOnChangeValue(std::string oldValue, CVarWrapper cvar);
 	void standBreakOnChangeValue(std::string oldValue, CVarWrapper cvar);
@@ -60,8 +55,6 @@ public:
 	void checkStandBreak();
 
 	void onDrawTimer(CanvasWrapper cw);
-	void onDrawLookBreak(CanvasWrapper cw);
-	void onDrawStandBreak(CanvasWrapper cw);
 	void flashDisplay(CanvasWrapper cw, bool cond1, bool cond2);
 };
 
