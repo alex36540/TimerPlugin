@@ -1,0 +1,17 @@
+Timer Plugin
+9 | hours
+12 | hours | timer_set_hours
+9 | minutes
+12 | minutes | timer_set_minutes
+9 | seconds
+12 | seconds | timer_set_seconds
+0 | Start timer | timer_enabled 1
+7 |
+0 | Stop timer | timer_enabled 0
+8 |
+1 | Enable looking break | lookBreak_enabled
+7 |
+1 | Enabled standing break | standBreak_enabled
+8 |
+5 | Display X | timer_display_x | 0 | 1920
+5 | Dispay Y | timer_display_y | 0 | 1080
