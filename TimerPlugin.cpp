@@ -1,7 +1,7 @@
 #include "TimerPlugin.h"
 #include <string.h>
 
-BAKKESMOD_PLUGIN(TimerPlugin, "Timer Plugin", "0.5", PLUGINTYPE_FREEPLAY)
+BAKKESMOD_PLUGIN(TimerPlugin, "Timer Plugin", "1.0", PLUGINTYPE_FREEPLAY)
 
 
 void TimerPlugin::onLoad()
