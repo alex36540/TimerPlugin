@@ -10,8 +10,13 @@ class TimerPlugin : public BakkesMod::Plugin::BakkesModPlugin
 private:
 	float currentTime;
 	float initialTime;
+	bool firstTime;
 	
 	float timerTimeLeft;
+	
+	float timerPauseTime;
+	float timerUnpauseTime;
+	float timerTotalPause;
 	
 	bool timerEnabled;
 	bool lookBreakEnabled;
@@ -31,9 +36,9 @@ private:
 
 	std::shared_ptr<int> displayX;
 	std::shared_ptr<int> displayY;
-	bool timerDisplayOn;
-	bool lookBreakDisplayOn;
+	bool displayEnabled = true;
 	
+	bool timerDisplayOn = true;
 	bool timerDone = false;
 	bool lookBreakDone = false;
 	bool standBreakDone = false;

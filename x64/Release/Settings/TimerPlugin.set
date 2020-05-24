@@ -1,17 +1,24 @@
 Timer Plugin
-9 | hours
-12 | hours | timer_set_hours
-9 | minutes
-12 | minutes | timer_set_minutes
-9 | seconds
-12 | seconds | timer_set_seconds
-0 | Start timer | timer_enabled 1
-7 |
-0 | Stop timer | timer_enabled 0
-8 |
-1 | Enable looking break | lookBreak_enabled
-7 |
-1 | Enabled standing break | standBreak_enabled
-8 |
-5 | Display X | timer_display_x | 0 | 1920
-5 | Dispay Y | timer_display_y | 0 | 1080
+9|hours
+12|hours|timer_set_hours
+9|minutes
+12|minutes|timer_set_minutes
+9|seconds
+12|seconds|timer_set_seconds
+0|Start/resume timer|timer_start
+7|
+0|Pause timer|timer_pause
+7|
+0|Refresh timer|timer_refresh
+8|
+9|
+1|Enable looking break (every 20min)|lookBreak_enabled
+7|
+1|Enabled standing break (every 30min)|standBreak_enabled
+9|
+8|
+4|Display X|timer_display_x|0|1920
+4|Dispay Y|timer_display_y|0|1080
+0|Show Display|timer_display_show
+7|
+0|Hide Display|timer_display_hide
